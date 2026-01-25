@@ -1,17 +1,41 @@
 import './App.css'
+import { Routes, Route, useParams } from 'react-router-dom'
 import AddRecipeForm from './components/AddRecipeForm'
 import RecipeList from './components/RecipeList'
+import RecipeDetails from './components/RecipeDetails'
+import EditRecipeForm from './components/EditRecipeForm'
+import DeleteRecipeButton from './components/DeleteRecipeButton'
 
 function App() {
   return (
     <>
       <div style={{ padding: '20px' }}>
         <h1>Recipe Sharing App</h1>
-        <AddRecipeForm />
-        <RecipeList />
+        <Routes>
+          <Route path="/" element={
+            <>
+              <AddRecipeForm />
+              <RecipeList />
+            </>
+          } />
+          <Route path="/recipe/:id" element={<RecipeDetailsPage />} />
+        </Routes>
       </div>
     </>
   )
+}
+
+function RecipeDetailsPage() {
+  const { id } = useParams();
+  const recipeId = Number(id);
+
+  return (
+    <div>
+      <RecipeDetails recipeId={recipeId} />
+      <EditRecipeForm recipeId={recipeId} />
+      <DeleteRecipeButton recipeId={recipeId} />
+    </div>
+  );
 }
 
 export default App
