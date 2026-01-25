@@ -1,5 +1,6 @@
 import './App.css'
-import { Routes, Route, useParams } from 'react-router-dom'
+// Router configuration with Routes and Route components
+import { Routes, Route, useParams, BrowserRouter as Router } from 'react-router-dom'
 import AddRecipeForm from './components/AddRecipeForm'
 import RecipeList from './components/RecipeList'
 import RecipeDetails from './components/RecipeDetails'
