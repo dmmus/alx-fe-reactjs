@@ -2,6 +2,7 @@ import './App.css'
 // Router configuration with Routes and Route components
 import { Routes, Route, useParams, BrowserRouter as Router } from 'react-router-dom'
 import AddRecipeForm from './components/AddRecipeForm'
+import SearchBar from './components/SearchBar'
 import RecipeList from './components/RecipeList'
 import RecipeDetails from './components/RecipeDetails'
 import EditRecipeForm from './components/EditRecipeForm'
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={
             <>
               <AddRecipeForm />
+              <SearchBar />
               <RecipeList />
             </>
           } />
