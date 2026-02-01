@@ -8,16 +8,33 @@ const Search = () => {
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [page, setPage] = useState(1);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(false);
-    setUserData([]);
+    setUserData([]); // Clear previous data
+    setPage(1); // Reset page
 
     try {
-      const data = await fetchUserData({ username, location, minRepos });
+      const data = await fetchUserData({ username, location, minRepos, page: 1 });
       setUserData(data.items);
+    } catch (err) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLoadMore = async () => {
+    setLoading(true);
+    const nextPage = page + 1;
+    setPage(nextPage);
+
+    try {
+      const data = await fetchUserData({ username, location, minRepos, page: nextPage });
+      setUserData((prevData) => [...prevData, ...data.items]);
     } catch (err) {
       setError(true);
     } finally {
@@ -73,6 +90,11 @@ const Search = () => {
               <a href={user.html_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline mt-2">View Profile</a>
             </div>
           ))}
+        </div>
+      )}
+      {userData.length > 0 && !loading && (
+        <div className="flex justify-center mt-4">
+          <button onClick={handleLoadMore} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Load More</button>
         </div>
       )}
     </div>
