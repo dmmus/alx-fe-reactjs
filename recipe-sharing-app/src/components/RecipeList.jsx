@@ -1,5 +1,6 @@
 import useRecipeStore from './recipeStore';
 import { Link } from 'react-router-dom';
+import FavoriteButton from './FavoriteButton';
 
 const RecipeList = () => {
   const { filteredRecipes, recipes, searchTerm } = useRecipeStore(state => ({
@@ -85,25 +86,27 @@ const RecipeList = () => {
                   </div>
                 )}
               </div>
-              <Link 
-                to={`/recipe/${recipe.id}`} 
-                style={{ 
-                  padding: '10px 20px', 
-                  backgroundColor: '#4CAF50', 
-                  color: 'white', 
-                  textDecoration: 'none', 
-                  borderRadius: '4px', 
-                  whiteSpace: 'nowrap', 
-                  marginLeft: '20px',
-                  transition: 'background-color 0.3s',
-                  fontSize: '14px',
-                  fontWeight: '500'
-                }}
-                onMouseEnter={(e) => e.target.style.backgroundColor = '#45a049'}
-                onMouseLeave={(e) => e.target.style.backgroundColor = '#4CAF50'}
-              >
-                View Details
-              </Link>
+              <div style={{ display: 'flex', gap: '10px', marginLeft: '20px', alignItems: 'center', flexShrink: 0 }}>
+                <FavoriteButton recipeId={recipe.id} />
+                <Link 
+                  to={`/recipe/${recipe.id}`} 
+                  style={{ 
+                    padding: '10px 20px', 
+                    backgroundColor: '#4CAF50', 
+                    color: 'white', 
+                    textDecoration: 'none', 
+                    borderRadius: '4px', 
+                    whiteSpace: 'nowrap',
+                    transition: 'background-color 0.3s',
+                    fontSize: '14px',
+                    fontWeight: '500'
+                  }}
+                  onMouseEnter={(e) => e.target.style.backgroundColor = '#45a049'}
+                  onMouseLeave={(e) => e.target.style.backgroundColor = '#4CAF50'}
+                >
+                  View Details
+                </Link>
+              </div>
             </div>
           ))}
         </div>
